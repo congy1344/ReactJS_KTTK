@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductList from './components/ProductList';
 import SearchBar from './components/SearchBar';
 import './App.css';
 
 const App = () => {
-  const [products, setProducts] = useState([
-    { id: 1, name: 'Sản phẩm A', price: 100000, category: 'Thời trang', stock: 10 },
-    { id: 2, name: 'Sản phẩm B', price: 200000, category: 'Công nghệ', stock: 5 },
-    { id: 3, name: 'Sản phẩm C', price: 150000, category: 'Gia dụng', stock: 8 },
-  ]);
+  const [products, setProducts] = useState(() => {
+    // Load products from localStorage on initial render
+    const savedProducts = localStorage.getItem('products');
+    return savedProducts ? JSON.parse(savedProducts) : [];
+  });
 
   const [newProduct, setNewProduct] = useState({
     name: '',
@@ -19,6 +19,12 @@ const App = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+
+  useEffect(() => {
+    // Save products to localStorage whenever the products state changes
+    localStorage.setItem('products', JSON.stringify(products));
+    console.log('Saved to localStorage:', products); // Evidence of saving
+  }, [products]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +56,6 @@ const App = () => {
     return matchesSearch && matchesCategory;
   });
 
-  // Calculate totals
   const totalProducts = products.length;
   const totalStock = products.reduce((sum, product) => sum + product.stock, 0);
 
