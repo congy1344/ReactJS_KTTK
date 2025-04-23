@@ -18,7 +18,7 @@ const App = () => {
   });
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(''); // New state for category filter
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,9 +50,16 @@ const App = () => {
     return matchesSearch && matchesCategory;
   });
 
+  // Calculate totals
+  const totalProducts = products.length;
+  const totalStock = products.reduce((sum, product) => sum + product.stock, 0);
+
   return (
     <div className="app-container">
       <h1>Quản lý sản phẩm</h1>
+      <div className="totals-container">
+        <p>Tổng sản phẩm: {totalProducts} | Tổng tồn kho: {totalStock}</p>
+      </div>
       <div className="form-container">
         <input
           type="text"
