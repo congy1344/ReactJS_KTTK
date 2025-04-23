@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ProductList from './components/ProductList';
+import SearchBar from './components/SearchBar';
 import './App.css';
 
 const App = () => {
@@ -15,6 +16,8 @@ const App = () => {
     category: '',
     stock: '',
   });
+
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,6 +38,10 @@ const App = () => {
   const handleDelete = (id) => {
     setProducts(products.filter((product) => product.id !== id));
   };
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="app-container">
@@ -70,7 +77,8 @@ const App = () => {
         />
         <button onClick={handleAddProduct}>Thêm sản phẩm</button>
       </div>
-      <ProductList products={products} onDelete={handleDelete} />
+      <SearchBar searchTerm={searchTerm} onSearch={setSearchTerm} />
+      <ProductList products={filteredProducts} onDelete={handleDelete} />
     </div>
   );
 };
