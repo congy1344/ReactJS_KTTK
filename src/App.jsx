@@ -5,9 +5,9 @@ import './App.css';
 
 const App = () => {
   const [products, setProducts] = useState([
-    { id: 1, name: 'Sản phẩm A', price: 100000, category: 'Danh mục 1', stock: 10 },
-    { id: 2, name: 'Sản phẩm B', price: 200000, category: 'Danh mục 2', stock: 5 },
-    { id: 3, name: 'Sản phẩm C', price: 150000, category: 'Danh mục 3', stock: 8 },
+    { id: 1, name: 'Sản phẩm A', price: 100000, category: 'Thời trang', stock: 10 },
+    { id: 2, name: 'Sản phẩm B', price: 200000, category: 'Công nghệ', stock: 5 },
+    { id: 3, name: 'Sản phẩm C', price: 150000, category: 'Gia dụng', stock: 8 },
   ]);
 
   const [newProduct, setNewProduct] = useState({
@@ -18,6 +18,7 @@ const App = () => {
   });
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(''); // New state for category filter
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,9 +40,15 @@ const App = () => {
     setProducts(products.filter((product) => product.id !== id));
   };
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+  };
+
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="app-container">
@@ -76,6 +83,15 @@ const App = () => {
           onChange={handleInputChange}
         />
         <button onClick={handleAddProduct}>Thêm sản phẩm</button>
+      </div>
+      <div className="filter-container">
+        <label htmlFor="category-filter">Lọc theo danh mục:</label>
+        <select id="category-filter" value={selectedCategory} onChange={handleCategoryChange}>
+          <option value="">Tất cả</option>
+          <option value="Thời trang">Thời trang</option>
+          <option value="Công nghệ">Công nghệ</option>
+          <option value="Gia dụng">Gia dụng</option>
+        </select>
       </div>
       <SearchBar searchTerm={searchTerm} onSearch={setSearchTerm} />
       <ProductList products={filteredProducts} onDelete={handleDelete} />
