@@ -1,4 +1,5 @@
 import React from 'react';
+import ProductItem from './ProductItem';
 
 const ProductList = ({ products, onDelete }) => {
   return (
@@ -16,15 +17,15 @@ const ProductList = ({ products, onDelete }) => {
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.name}</td>
-              <td>{product.price} VND</td>
-              <td>{product.category}</td>
-              <td>{product.stock}</td>
-              <td>
-                <button onClick={() => onDelete(product.id)}>Xoá</button>
-              </td>
-            </tr>
+            <ProductItem
+              key={product.id}
+              id={product.id}
+              name={product.name}
+              price={product.price}
+              category={product.category}
+              stock={product.stock}
+              onDelete={onDelete}
+            />
           ))}
         </tbody>
       </table>
