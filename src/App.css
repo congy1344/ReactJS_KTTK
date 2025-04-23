@@ -3,11 +3,12 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  color: #fff; /* Default text color */
 }
 
 h1 {
   text-align: center;
-  color: #333;
+  color: #006eff; /* Light blue for the main title */
 }
 
 .form-container {
@@ -41,17 +42,22 @@ h1 {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin: 20px auto; /* Center the table */
+  text-align: center; /* Center text in table cells */
 }
 
 table th, table td {
   border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
+  padding: 15px; /* Increase padding for more spacing */
 }
 
 table th {
-  background-color: #f4f4f4;
+  background-color: #333; /* Darker background for table headers */
+  color: #4488ee; /* Light blue for header text */
+}
+
+table td {
+  color: #fff; /* White text for table content */
 }
 
 button {
@@ -65,26 +71,4 @@ button {
 
 button:hover {
   background-color: #c82333;
-}
-
-.app-container {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  color: #fff; /* Màu chữ mặc định là trắng */
-}
-
-h1 {
-  text-align: center;
-  color: #006eff; /* Màu vàng nhạt cho tiêu đề chính */
-}
-
-table th {
-  background-color: #333; /* Màu nền tối hơn cho tiêu đề bảng */
-  color: #4488ee; /* Màu vàng nhạt cho chữ trong tiêu đề bảng */
-}
-
-table td {
-  color: #fff; /* Màu chữ trắng cho nội dung bảng */
 }
